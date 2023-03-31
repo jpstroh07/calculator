@@ -1,4 +1,4 @@
-function test() {
-    var v = document.getElementById("seven").innerHTML;
-    document.getElementById("display").innerHTML = v;
+function numberClick(num) {
+    old = parseInt(document.getElementById("display").innerHTML);
+    document.getElementById("display").innerHTML = old + num;
 }

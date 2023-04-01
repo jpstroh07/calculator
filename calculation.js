@@ -9,3 +9,11 @@ function numberClick(num) {
         document.getElementById("display").innerHTML = old + num;
     }
 }
+
+function clearDisplay() {
+    displayNum = 0.0;
+    firstNum = 0.0;
+    secondNum = 0.0;
+
+    document.getElementById("display").innerHTML = displayNum;
+}

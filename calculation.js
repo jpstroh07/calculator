@@ -50,9 +50,26 @@ function clearDisplay() {
 function calc() {
     var b = document.getElementById("sum");
 
-    if (displayNum == 0) {
-        b.innerHTML = b.textContent = "";
-    } else {
-        b.innerHTML = b.textContent = "> " + firstNum + " " + operator + " " + secondNum; 
+    b.innerHTML = b.textContent = "> " + firstNum + " " + operator + " " + secondNum;
+
+    var result;
+
+    switch (operator) {
+        case "+":
+            result = firstNum + secondNum;
+            break;
+        case "-":
+            result = firstNum - secondNum;
+            break;
+        case "*":
+            result = firstNum * secondNum;
+            break;
+        case "/":
+            result = firstNum / secondNum;
+            break;
+        default:
+            break;
     }
+
+    document.getElementById("display").innerHTML = result;
 }

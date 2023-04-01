@@ -39,10 +39,10 @@
 
             <div class="calculator-column">
                 <button class="button-delete" onclick="clearDisplay()">C</button>
-                <button class="calculator-button" id="divide">/</button>
-                <button class="calculator-button" id="times">*</button>
-                <button class="calculator-button" id="minus">-</button>
-                <button class="calculator-button" id="plus">+</button>
+                <button class="calculator-button" id="divide" onclick="handleOperator('/')">/</button>
+                <button class="calculator-button" id="times" onclick="handleOperator('*')">*</button>
+                <button class="calculator-button" id="minus" onclick="handleOperator('-')">-</button>
+                <button class="calculator-button" id="plus" onclick="handleOperator('+')">+</button>
             </div>
         </div>
     </div>

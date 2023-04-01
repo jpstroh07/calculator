@@ -1,10 +1,17 @@
-var displayNum = 0.0;
+var displayNum = "";
 var firstNum = 0.0;
 var secondNum = 0.0;
 var operator = "";
 var isSecond = false;
+var calcDone = false;
 
 function handleNumber(num) {
+    if (calcDone) {
+        clearDisplay();
+    }
+
+    calcDone = false;
+
     if (isSecond) {
         secondNum = numberClick(num);
     } else {
@@ -13,7 +20,7 @@ function handleNumber(num) {
 }
 
 function handleOperator(op) {
-    firstNum = displayNum;
+    firstNum = parseFloat(displayNum);
     displayNum = 0.0;
     operator = op;
     isSecond = true;
@@ -21,16 +28,24 @@ function handleOperator(op) {
     var b = document.getElementById("sum");
 
     b.innerHTML = b.textContent = "> " + firstNum + " " + operator;
+    document.getElementById("display").innerHTML = displayNum;
 }
 
 function numberClick(num) {
-    var old = displayNum * 10;
+    const old = parseFloat(displayNum.toString() + num.toString());
 
-    if (old.toString().length < 13) {
-        displayNum = old + num;
+    if (old.toString().length <= 13) {
+        displayNum = old;
         document.getElementById("display").innerHTML = displayNum;
 
-        return displayNum;
+        return parseFloat(displayNum);
+    }
+}
+
+function addDecimalPoint() {
+    if (!displayNum.toString().includes(".") && displayNum.toString().length < 13) {
+        displayNum += ".";
+        document.getElementById("display").innerHTML = displayNum;
     }
 }
 
@@ -50,26 +65,37 @@ function clearDisplay() {
 function calc() {
     var b = document.getElementById("sum");
 
-    b.innerHTML = b.textContent = "> " + firstNum + " " + operator + " " + secondNum;
+    if (secondNum == 0 && operator == "/") {
+        b.innerHTML = b.textContent = "Error: Cannot divide by 0"
+    } else {
+        b.innerHTML = b.textContent = "> " + firstNum + " " + operator + " " + secondNum;
 
-    var result;
+        var result;
 
-    switch (operator) {
-        case "+":
-            result = firstNum + secondNum;
-            break;
-        case "-":
-            result = firstNum - secondNum;
-            break;
-        case "*":
-            result = firstNum * secondNum;
-            break;
-        case "/":
-            result = firstNum / secondNum;
-            break;
-        default:
-            break;
+        switch (operator) {
+            case "+":
+                result = firstNum + secondNum;
+                break;
+            case "-":
+                result = firstNum - secondNum;
+                break;
+            case "*":
+                result = firstNum * secondNum;
+                break;
+            case "/":
+                result = firstNum / secondNum;
+                break;
+            default:
+                b.innerHTML = b.textContent = "Error: No operator entered";
+                result = 0;
+                break;
+        }
+        calcDone = true;
+
+        if (result.toString().length > 13) {
+            result = result.toExponential(5);
+        }
+
+        document.getElementById("display").innerHTML = result;
     }
-
-    document.getElementById("display").innerHTML = result;
 }
